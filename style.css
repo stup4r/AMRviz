@@ -1,0 +1,76 @@
+
+
+svg {
+    background-color: white;
+}
+
+#container {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
+}
+
+#container h1 {
+    color: rgb(115, 115, 115);
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+#container p {
+    font-family: sans-serif;
+    color: #A0A0A0;
+    font-size: 16px;
+}
+
+#container .cntrLst {
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.btn {
+    background-color: #5696BA;
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.btn:hover {
+    background-color: #4F3A7A;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 30%;
+    height: 15px;
+    border-radius: 5px;
+    background: #5696BA;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.scrollbar{
+    text-align: center;
+}
+
+.scrollbar .slider:hover {
+    opacity: 1;
+
+}
+
+.scrollbar #yearInput{
+    font-size: 30px;
+    color: #737373;
+}

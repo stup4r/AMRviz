@@ -73,4 +73,16 @@ svg {
 .scrollbar #yearInput{
     font-size: 30px;
     color: #737373;
+    position: relative;
+    right: 10px;
+}
+
+#unselecter {
+    position: relative;
+    left: 15px;
+}
+
+#pltall {
+    position: relative;
+    left: 5px;
 }

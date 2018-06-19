@@ -138,6 +138,7 @@ function makeSpiderChart(country){
     yearSlice = years.slice(0,1);
     RadarChart.draw('svg', dataSlice, mycfg);
     makeLegend(yearSlice);
+    d3.selectAll(".chkb").remove();
 
     d3.selectAll(".scrollbar").remove();
 
@@ -160,11 +161,13 @@ function makeSpiderChart(country){
        .attr("value", "2000")
        .on("input", function(){
           updateYear(+this.value);
+          d3.selectAll(".chkb").remove();
        });
 
      d3.select(".scrollbar")
       .append("button")
       .text("Plot All")
+      .attr("id", "pltall")
       .attr("class", "btn")
       .on('click', function(){
         RadarChart.draw('svg', dta, mycfg);
@@ -179,7 +182,7 @@ function makeSpiderChart(country){
       yearSlice = years.slice(s,s+1);
       RadarChart.draw('svg', dataSlice, mycfg);
       makeLegend(yearSlice);
-    }
+    };
 
 
     d3.selectAll(".title").remove();
@@ -207,21 +210,67 @@ function makeLegend(yearSlice){
       .enter()
       .append("rect")
       .attr("x", wChart - 73)
-      .attr("y", function(d, i){ return i * 20;})
+      .attr("y", function(d, i){ return i * 20 + 5;})
       .attr("width", 10)
       .attr("height", 10)
-      .style("fill", function(d, i){ return colorscale(i);})
-      ;
+      .style("fill", function(d, i){ return colorscale(i);});
+
+    legend.selectAll("foreignObject")
+      .data(yearSlice)
+      .enter()
+      .append("foreignObject")
+      .classed("chkb", true)
+      .attr("x", wChart - 105)
+      .attr("y", function(d, i){ return i * 20 - 7;})
+      .append("xhtml:body")
+      .html("<form><input type=checkbox class=check checked=true /></form>")
+      .attr("id", function(d, i){return i;})
+      .on("click", updateRadar);
+
+    function updateRadar(){
+      var removals = [];
+      d3.selectAll(".check").each(function(d){
+        sel = d3.select(this);
+        if (sel.property("checked") == false){
+          removals.push(sel.property("offsetParent").id);
+        }
+      });
+
+      var dta2 = [];
+      for (var i=0; i<dta.length; i++){
+        dta2x =[];
+        for (var j=0; j<dta[i].length; j++){
+          dta2x.push(Object.assign({}, dta[i][j]));
+        }
+        dta2.push(dta2x);
+      };
+
+      for (var i = 0; i < removals.length; i++){
+        dta2[removals[i]].forEach(function(x){x.value=0;});
+      };
+      RadarChart.draw('svg', dta2, mycfg);
+    };
+
     //Create text next to squares
     legend.selectAll('text')
       .data(yearSlice)
       .enter()
       .append("text")
       .attr("x", wChart - 58)
-      .attr("y", function(d, i){ return i * 20 + 10;})
+      .attr("y", function(d, i){ return i * 20 + 15;})
       .attr("font-size", "14px")
       .attr("fill", "#737373")
       .text(function(d) { return d; });
+
+    d3.select("#unselecter").remove();
+    d3.select(".scrollbar").append("button") 
+      .attr("class", "btn")
+      .attr("id", "unselecter")
+      .text("Unselect All")
+      .on('click', function(){
+        d3.selectAll(".check")[0].forEach(function(x){x.checked = false});
+        updateRadar();
+      });
 };
     
 

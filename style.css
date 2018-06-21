@@ -5,7 +5,7 @@ svg {
 }
 
 #container {
-    width: 800px;
+    width: 920px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
@@ -86,13 +86,12 @@ svg {
     position: relative;
     left: 5px;
 }
+/*
+
 #drpdwn {
     position: absolute;
     background-color: #5696BA;
-    z-index: 0;
-
 }
-
 #container #clickDrop {
     color: #FFFFFF;
     background-color: #5696BA;
@@ -104,3 +103,4 @@ svg {
     padding: 5px;
     cursor: pointer;
 }
+*/

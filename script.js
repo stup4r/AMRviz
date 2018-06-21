@@ -19,6 +19,14 @@ var svg = d3.select("#container")
             .attr("id", "mainsvg")
             .attr("width", w)
             .attr("height", h);
+/*
+var svgdrop = d3.select("#container")
+            .append("svg")
+            .attr("id", "drpdwn")
+            .attr("x", 0)
+            .attr("width", 120)
+            .attr("height", 0);
+            */
 
 //Load in GeoJSON data
 d3.json("europe.json", function(json) {
@@ -59,7 +67,7 @@ d3.json("data.json", function(err, data) {
     years = Object.keys(data.Germany);
     var populations = Object.keys(data.Austria[2016]);
     
-    d3.select("#drpdwn").selectAll("text")
+    svg.selectAll("text")
         .data(countries)
         .enter()
         .append("text")
@@ -93,9 +101,9 @@ d3.select(".btn")
     d3.selectAll(".legend").remove();
     d3.selectAll(".radar").remove();
     d3.selectAll(".scrollbar").remove();
-
   });
 
+/*
 var dropdownON = false;
   d3.select("#clickDrop")
     .on('click', function(){
@@ -108,7 +116,7 @@ var dropdownON = false;
       dropdownON = false;
       };
     });
-
+*/
 
 // Try of a chart
 function makeSpiderChart(country){

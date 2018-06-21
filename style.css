@@ -86,3 +86,21 @@ svg {
     position: relative;
     left: 5px;
 }
+#drpdwn {
+    position: absolute;
+    background-color: #5696BA;
+    z-index: 0;
+
+}
+
+#container #clickDrop {
+    color: #FFFFFF;
+    background-color: #5696BA;
+    width: 150px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 0px;
+    padding: 5px;
+    cursor: pointer;
+}

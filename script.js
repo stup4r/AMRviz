@@ -16,6 +16,7 @@ var path = d3.geo.path()
 //Create SVG element
 var svg = d3.select("#container")
             .append("svg")
+            .attr("id", "mainsvg")
             .attr("width", w)
             .attr("height", h);
 
@@ -58,7 +59,7 @@ d3.json("data.json", function(err, data) {
     years = Object.keys(data.Germany);
     var populations = Object.keys(data.Austria[2016]);
     
-    svg.selectAll("text")
+    d3.select("#drpdwn").selectAll("text")
         .data(countries)
         .enter()
         .append("text")
@@ -94,6 +95,19 @@ d3.select(".btn")
     d3.selectAll(".scrollbar").remove();
 
   });
+
+var dropdownON = false;
+  d3.select("#clickDrop")
+    .on('click', function(){
+      if (dropdownON == false){
+      d3.select("#drpdwn").transition().duration(2000).attr("height", 480);
+      dropdownON = true;
+      }
+      else{
+      d3.select("#drpdwn").transition().duration(2000).attr("height", 0);
+      dropdownON = false;
+      };
+    });
 
 
 // Try of a chart
@@ -145,7 +159,6 @@ function makeSpiderChart(country){
     d3.select("#container")
        .append("div")
        .classed("scrollbar", true)
-
        .append("text")
        .attr("id", "yearInput")
        .attr("x", wChart/2)
@@ -219,6 +232,8 @@ function makeLegend(yearSlice){
       .data(yearSlice)
       .enter()
       .append("foreignObject")
+      .attr("width", 100)
+      .attr("height", 100)
       .classed("chkb", true)
       .attr("x", wChart - 105)
       .attr("y", function(d, i){ return i * 20 - 7;})
@@ -228,13 +243,14 @@ function makeLegend(yearSlice){
       .on("click", updateRadar);
 
     function updateRadar(){
-      var removals = [];
-      d3.selectAll(".check").each(function(d){
-        sel = d3.select(this);
-        if (sel.property("checked") == false){
-          removals.push(sel.property("offsetParent").id);
-        }
-      });
+      var yearIndices = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16];
+
+      sels = d3.selectAll(".check");
+      var mask = [];
+      for (var i = 0; i<sels[0].length; i++){
+        mask[i] = sels[0][i].checked;
+      };
+      var removals = yearIndices.filter((item, i) => !mask[i]);
 
       var dta2 = [];
       for (var i=0; i<dta.length; i++){
@@ -244,9 +260,11 @@ function makeLegend(yearSlice){
         }
         dta2.push(dta2x);
       };
-
       for (var i = 0; i < removals.length; i++){
-        dta2[removals[i]].forEach(function(x){x.value=0;});
+        //dta2[removals[i]].forEach(function(x){x.value=0;});
+        for (var j = 0; j<dta2[removals[i]].length; j++){
+          dta2[removals[i]][j].value = 0;
+        }
       };
       RadarChart.draw('svg', dta2, mycfg);
     };

@@ -16,6 +16,7 @@ var path = d3.geo.path()
 //Create SVG element
 var svg = d3.select("#container")
             .append("svg")
+            .style("background-color", "transparent")
             .attr("id", "mainsvg")
             .attr("width", w)
             .attr("height", h);

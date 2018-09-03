@@ -13,6 +13,9 @@ var projection = d3.geo.azimuthalEquidistant()
 var path = d3.geo.path()
                  .projection(projection);
 
+d3.select("#container")
+            .style("background-image",'url("AMRvizBackground.png")');
+
 //Create SVG element
 var svg = d3.select("#container")
             .append("svg")
@@ -96,7 +99,8 @@ d3.select(".btn")
   .on('click', function(){
     d3.selectAll(".map").style("visibility", "visible");
     svg.attr("height", h).attr("width", w);
-    d3.select("#container").style("width", w.toString()+"px");
+    d3.select("#container").style("width", w.toString()+"px")
+      .style("background-image",'url("AMRvizBackground.png")');
 
     d3.selectAll(".title").remove();
     d3.selectAll(".legend").remove();
@@ -126,7 +130,9 @@ function makeSpiderChart(country){
     var wChart = w*1.5;
     var hChart = h*1.3;
     svg.attr("height", hChart).attr("width", wChart);
-    d3.select("#container").style("width", wChart.toString()+"px");
+    d3.select("#container")
+      .style("background-image",'none')
+      .style("width", wChart.toString()+"px");
 
     var n = Object.keys(dataset[country][2015]).length;    
     

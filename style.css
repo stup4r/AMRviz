@@ -88,6 +88,12 @@ svg {
     position: relative;
     left: 5px;
 }
+
+.explText {
+    font-family: Arial;
+    font-style: italic;
+    font-size: 12px;
+}
 /*
 
 #drpdwn {

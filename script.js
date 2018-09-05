@@ -125,10 +125,63 @@ var dropdownON = false;
 
 // Try of a chart
 function makeSpiderChart(country){
+
+    d3.select("#mainsvg").append("path")
+          .attr("marker-end", "url(#triangle)")
+          .attr("d", "M1094.5,730.5c0,0,27-50,5-71s-47,6-47,6")
+          .attr("stroke", "#A8A8A8")
+          .attr("stroke-width", "1.5")          
+          .attr("fill", "transparent");
+
+    d3.select("#mainsvg").append("polygon")
+          .attr("points", "1045.4,672.9 1047.2,666.7 1049,660.4 1053.5,665.1 1058.1,669.8 1051.7,671.4")
+          .attr("fill", "#A8A8A8");
+
+    d3.select("#mainsvg").append("line")
+          .attr("x1", "1022.5")
+          .attr("y1", "646.5")
+          .attr("x2", "1022.5")
+          .attr("y2", "771.5")
+          .attr("stroke-width", "2.5")
+          .attr("stroke", "#922B21");
+
+    text_expl = d3.select("#mainsvg").append("text").attr("class", "explText")
+          .attr("transform", "matrix(1 0 0 1 1037.0439 754.0869)")
+          .text("red line means the values").attr("fill", "#A8A8A8");
+    text_expl.append("tspan").attr("class", "explText")
+          .attr("x", "0").attr("y", "14.4").text("are missing, and are not 0!")
+          .attr("fill", "#A8A8A8");
+
+
+    line_group = d3.select("#mainsvg").append("g")
+          line_group.append("path")
+          .attr("d", "M991,730.5c0,0,30.8-21,63,0")
+          .attr("fill", "transparent")
+          .attr("stroke", "#DBDBDB")
+          .attr("stroke-width", "0.5");
+          line_group.append("path")
+          .attr("d", "M985,708.5c0,0,36.7-21,75,0")
+          .attr("fill", "transparent")
+          .attr("stroke", "#DBDBDB")
+          .attr("stroke-width", "0.5");
+          line_group.append("path")
+          .attr("d", "M977.5,686.5c0,0,44-21,90,0")
+          .attr("fill", "transparent")
+          .attr("stroke", "#DBDBDB")
+          .attr("stroke-width", "0.5");
+          line_group.append("path")
+          .attr("d", "M968,664.5c0,0,53.3-21,109,0")
+          .attr("fill", "transparent")
+          .attr("stroke", "#DBDBDB")
+          .attr("stroke-width", "0.5");
+
+
+
     d3.selectAll(".map").style("visibility", "hidden");
 
     var wChart = w*1.5;
     var hChart = h*1.3;
+
     svg.attr("height", hChart).attr("width", wChart);
     d3.select("#container")
       .style("background-image",'none')

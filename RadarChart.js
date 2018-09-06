@@ -20,7 +20,7 @@ var RadarChart = {
 	 maxValue: 0,
 	 radians: 2 * Math.PI,
 	 opacityArea: 0.5,
-	 ToRight: 5,
+	 ToRight: -20,
 	 TranslateX: 80,
 	 TranslateY: 30,
 	 ExtraWidthX: 100,
@@ -82,7 +82,7 @@ var RadarChart = {
 	   .attr("y", function(d){return levelFactor*(1-cfg.factor*Math.cos(0));})
 	   .attr("class", "legend")
 	   .style("font-family", "sans-serif")
-	   .style("font-size", "10px")
+	   .style("font-size", "12px")
 	   .attr("transform", "translate(" + (cfg.w/2-levelFactor + cfg.ToRight) + ", " + (cfg.h/2-levelFactor) + ")")
 	   .attr("fill", "#737373")
 	   .text(Format((j+1)*cfg.maxValue/cfg.levels));
@@ -114,11 +114,11 @@ var RadarChart = {
 		.style("stroke", "grey")
 		.style("stroke-width", "1px");
       
-      
+      /*     
 function toDegrees (angle) {
   return angle * (180 / Math.PI);
 }
-      /*
+     
 	axis.append("text")
 		.attr("class", "legend")
 		.attr("id", function (d, i){return "textline" + i})
@@ -147,23 +147,23 @@ function toDegrees (angle) {
 		.attr("class", "legend")
 		.attr("id", function (d, i){return "textline" + i})
 		.text(function(d){return d})
-		.style("font-family", "sans-serif")
-		.style("font-size", "11px")
+		.style("font-family", "Arial")
+		.style("font-size", "13px")
         .attr("startOffset", function(d, i){
           var x;
           if(i < Math.round(total/2)){
               x = "55%"
           }
           else{
-              x = "10%"
+              x = "30%"
           }
           return x ; });
       
 
  	function missing_data(jv, iv){
  		if(jv == -1){
- 			d3.select("#line" + iv).style("stroke", "#922B21").style("stroke-width", "2px");
- 			d3.select("#textline" + iv).style("fill", "#922B21");
+ 			d3.select("#line" + iv).style("stroke", "#EBEDEF").style("stroke-width", "2px");
+ 			d3.select("#textline" + iv).style("fill", "#EBEDEF");
  		}
  	}
 

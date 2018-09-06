@@ -102,6 +102,9 @@ d3.select(".btn")
     d3.select("#container").style("width", w.toString()+"px")
       .style("background-image",'url("AMRvizBackground.png")');
 
+    d3.select("#mainsvg")
+      .style("background-image",'none')
+
     d3.selectAll(".title").remove();
     d3.selectAll(".legend").remove();
     d3.selectAll(".radar").remove();
@@ -143,13 +146,13 @@ function makeSpiderChart(country){
           .attr("x2", "1022.5")
           .attr("y2", "771.5")
           .attr("stroke-width", "2.5")
-          .attr("stroke", "#922B21");
+          .attr("stroke", "#EBEDEF");
 
     text_expl = d3.select("#mainsvg").append("text").attr("class", "explText")
           .attr("transform", "matrix(1 0 0 1 1037.0439 754.0869)")
-          .text("red line means the values").attr("fill", "#A8A8A8");
+          .text("grayed out line means the").attr("fill", "#A8A8A8");
     text_expl.append("tspan").attr("class", "explText")
-          .attr("x", "0").attr("y", "14.4").text("are missing, and are not 0!")
+          .attr("x", "0").attr("y", "14.4").text("values are missing (not 0).")
           .attr("fill", "#A8A8A8");
 
 
@@ -175,7 +178,7 @@ function makeSpiderChart(country){
           .attr("stroke", "#DBDBDB")
           .attr("stroke-width", "0.5");
 
-
+    d3.select("#mainsvg").style("background-image",'url("AMRvizBackgroundRadar.png")');      
 
     d3.selectAll(".map").style("visibility", "hidden");
 
@@ -195,7 +198,7 @@ function makeSpiderChart(country){
         for (var i = 0; i<n; i++){
             var tmp = {};
             str1 = Object.keys(dataset[country][years[j]])[i];
-            tmp.axis = str1.replace("|", " | ");
+            tmp.axis = str1.substring(1+str1.indexOf("|"));
             tmp.value = Object.values(dataset[country][years[j]])[i];
             nesto[i] = tmp;
         };
@@ -270,10 +273,11 @@ function makeSpiderChart(country){
     //Create the title for the legend
     var text = svg.append("text")
         .attr("class", "title")
-        .attr("x", w/2)
-        .attr("y", 15)
+        .attr("x", w/2-50)
+        .attr("y", 13)
         .attr("font-size", "18px")
-        .attr("fill", "#404040")
+        .attr("fill", "#737373")
+        .style("font-family", "Arial")
         .text("Percentage of intermediate and resistant strains for "+country);
 
 function makeLegend(yearSlice){

@@ -64,7 +64,7 @@ d3.json("europe.json", function(json) {
 var dataset;
 var years;
 
-d3.json("data2.json", function(err, data) {
+d3.json("data.json", function(err, data) {
     if(err) console.log("Error fetching data");
     dataset = data;
     var countries = Object.keys(data);    

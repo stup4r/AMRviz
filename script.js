@@ -64,10 +64,10 @@ d3.json("europe.json", function(json) {
 var dataset;
 var years;
 
-d3.json("data.json", function(err, data) {
+d3.json("data2.json", function(err, data) {
     if(err) console.log("Error fetching data");
     dataset = data;
-    var countries = Object.keys(data);
+    var countries = Object.keys(data);    
     years = Object.keys(data.Germany);
     var populations = Object.keys(data.Austria[2016]);
     
@@ -247,7 +247,7 @@ function makeSpiderChart(country){
 
      d3.select(".scrollbar")
       .append("button")
-      .text("Plot All")
+      .text(" Plot All ")
       .attr("id", "pltall")
       .attr("class", "btn")
       .on('click', function(){

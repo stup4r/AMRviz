@@ -96,7 +96,7 @@ var RadarChart = {
 			.append("g")
 			.attr("class", "axis");
 
-	axis.append("line")
+/*	axis.append("line")
 		.attr("x1", cfg.w/2)
 		.attr("y1", cfg.h/2)
 		.attr("x2", function(d, i){return cfg.w/2*(1-cfg.factor*Math.sin(i*cfg.radians/total));})
@@ -105,7 +105,20 @@ var RadarChart = {
 		.attr("id", function (d, i){return "line" + i})
 		.style("stroke", "grey")
 		.style("stroke-width", "1px");
-
+      */
+      
+      	axis.append("path")
+		.attr("d", function(d, i){return "M"+cfg.w/2+" "+cfg.h/2+" L"+cfg.w/2*(1-cfg.factor*Math.sin(i*cfg.radians/total))+" "+cfg.h/2*(1-cfg.factor*Math.cos(i*cfg.radians/total))+" Z";})
+		.attr("class", "line")
+		.attr("id", function (d, i){return "line" + i})
+		.style("stroke", "grey")
+		.style("stroke-width", "1px");
+      
+      
+function toDegrees (angle) {
+  return angle * (180 / Math.PI);
+}
+      /*
 	axis.append("text")
 		.attr("class", "legend")
 		.attr("id", function (d, i){return "textline" + i})
@@ -113,16 +126,39 @@ var RadarChart = {
 		.style("font-family", "sans-serif")
 		.style("font-size", "11px")
 		.attr("text-anchor", "middle")
-		.attr("dy", "1.5em")
-		.attr("transform", function(d, i){return "translate(0, -10)";})
+		.attr("dy", "1.3em")
+        .attr("dx", "1.1em")
 		.attr("x", function(d, i){return cfg.w/2*(1-cfg.factorLegend*Math.sin(i*cfg.radians/total))-60*Math.sin(i*cfg.radians/total);})
 		.attr("y", function(d, i){return cfg.h/2*(1-Math.cos(i*cfg.radians/total))-20*Math.cos(i*cfg.radians/total);})
-		.attr("transform", function(d,i){
-			var xi = cfg.w/2*(1-cfg.factor*Math.sin(i*cfg.radians/total));
-			var yi = cfg.h/2*(1-cfg.factor*Math.cos(i*cfg.radians/total));
+        .attr("transform", function(d,i){
+			var xi = cfg.w/2*(1-cfg.factorLegend*Math.sin(i*cfg.radians/total))-60*Math.sin(i*cfg.radians/total);
+			var yi = cfg.h/2*(1-Math.cos(i*cfg.radians/total))-20*Math.cos(i*cfg.radians/total);            
+            if(i < Math.round(total/2)){
+                i = i;
+            }
+            else {
+                i = i - Math.round(total/2);
+            }
+            return "rotate(" + toDegrees(Math.PI/2 - i*(2*Math.PI/total)) + ", " + xi + ", " + yi + ")";
+            });
+            */
 
-			return "rotate(" + i*(2*Math.PI/total) + ", " + xi + ", " + yi + ")"});
-
+      axis.append("text").append("textPath").attr("xlink:href", function(d, i){return "#line"+i;})
+		.attr("class", "legend")
+		.attr("id", function (d, i){return "textline" + i})
+		.text(function(d){return d})
+		.style("font-family", "sans-serif")
+		.style("font-size", "11px")
+        .attr("startOffset", function(d, i){
+          var x;
+          if(i < Math.round(total/2)){
+              x = "55%"
+          }
+          else{
+              x = "10%"
+          }
+          return x ; });
+      
 
  	function missing_data(jv, iv){
  		if(jv == -1){
